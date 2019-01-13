@@ -26,6 +26,12 @@ connection.on('error', error => {
 const app = express();
 app.use(bodyParser.json())
 
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/client/build/index.html')
+})
+
+app.use(express.static(__dirname + '/client/build/'))
+
 const UsersController = require('./routes/users')
 app.use('/api/users', UsersController)
 
