@@ -9,11 +9,11 @@ const UserSchema = new Schema({
     },
     lastName: {
         type: String,
-        required: true
+        required: false
     },
     userName: {
         type: String,
-        required: true
+        required: false
     },
     phoneNumber: {
         type: String,
@@ -22,11 +22,11 @@ const UserSchema = new Schema({
     emailAddress:  {
         type: String,
         required: true,
-        unique: true
+        unique: false
     },
     password:  {
         type: String,
-        required: true
+        required: false
     }
 });
 
