@@ -19,11 +19,19 @@ router.post('/', async (req, res) => {
         const newUser = req.body;
         const savedUser = await User.create(newUser);
         res.json(savedUser);
-    }
-    catch (err) {
-        console.log(err)
-        res.statusCode(500).json(err)
+    } catch (err) {
+        console.log(err);
+        res.statusCode(500).json(err);
     }
 });
 
-module.exports = router
+router.get('/:userId', async (req, res) => {
+    try {
+        const user = await User.findById(req.params.userId);
+        res.json(user);
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+module.exports = router;
