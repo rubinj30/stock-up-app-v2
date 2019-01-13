@@ -1,0 +1,15 @@
+.button { 
+    border-radius: 5px;
+}
+
+.small {
+    font-size: 12px;
+}
+
+.medium {
+    font-size: 16px;
+}
+
+.large {
+    font-size: 24px;
+}
