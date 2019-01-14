@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Homepage } from './pages/homepage/homepage.component';
 import { Header } from './components/molecules/header/header.component';
-import { LogIn } from './pages/log-in/log-in.component';
+import { LogIn } from './pages/log-in/log-in-page.component';
 
 class App extends Component {
     render() {
