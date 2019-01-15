@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const mongoose = require('mongoose');
 const express = require('express');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 // const methodOverride = require('method-override');
 // const logger = require('morgan');
 
@@ -24,16 +24,16 @@ connection.on('error', error => {
 });
 
 const app = express();
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/client/build/index.html')
-})
+    res.sendFile(__dirname + '/client/build/index.html');
+});
 
-app.use(express.static(__dirname + '/client/build/'))
+app.use(express.static(__dirname + '/client/build/'));
 
-const UsersController = require('./routes/users')
-app.use('/api/users', UsersController)
+const UsersController = require('./routes/users');
+app.use('/api/users', UsersController);
 
 app.get('/', (req, res) => {
     res.send('Hello World');

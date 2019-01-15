@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { LogInForm } from '../../components/organisms/log-in-form/log-in-form.component';
 import './log-in.css';
 import axios from 'axios';
+import validator from 'validator';
 
 type TabsProps = {
     handleClick: (e: React.MouseEvent<HTMLDivElement>) => void;
@@ -29,7 +30,11 @@ export class LogIn extends Component {
     state = {
         emailAddress: '',
         password: '',
-        isLogIn: true
+        firstName: '',
+        lastName: '',
+        isLogIn: true,
+        redirect: false,
+        error: false
     };
 
     handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,15 +58,23 @@ export class LogIn extends Component {
             emailAddress,
             password
         });
-
-        // TODO: setup two-way hashing 
-        if (password === data[0].password) {
-            console.log('password matched');
+        if (validator.isEmail(emailAddress)) {
+            console.log('valid email');
         } else {
-            console.log('password not matched')
+            console.log('not valid email')
+        }
+        // TODO: setup two-way hashing
+        if (!data[0]) {
+            console.log('user not found');
+        } else if (password === data[0].password) {
+            console.log('password matched');
+        } else if (data.error) {
+            console.log('ERROR');
+        } else {
+            console.log('password not matched and no error');
         }
         // TODO: if successful, should redirect to users portfolio page
-        // else show error and keep on page 
+        // else show error and keep on page
     };
 
     signup = (e: React.MouseEvent<any>) => {
