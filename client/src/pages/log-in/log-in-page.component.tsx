@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Input } from '../../components/atoms/input/input.component';
 import { Button } from '../../components/atoms/button/button.component';
+import './log-in.css';
+import axios from 'axios';
 
 type TabsProps = {
     handleClick: (e: React.MouseEvent<HTMLDivElement>) => void;
@@ -12,13 +14,13 @@ export const LogInTabs = ({ handleClick, isLogIn }: TabsProps) => (
     <div className="f4 flex">
         <div
             onClick={handleClick}
-            className={`w-50 pv1 tc ${!isLogIn && 'bg-white bb br'}`}
+            className={`w-50 pv1 tc ${!isLogIn ? 'bg-white bb br' : 'white'}`}
         >
             Log In
         </div>
         <div
             onClick={handleClick}
-            className={`w-50 pv1 tc ${isLogIn && 'bg-white bb bl'}`}
+            className={`w-50 pv1 tc ${isLogIn ? 'bg-white bb bl' : 'white'}`}
         >
             Sign Up
         </div>
@@ -46,11 +48,27 @@ export class LogIn extends Component {
         }
     };
 
+    login = async (e: React.MouseEvent<any>) => {
+        e.preventDefault();
+        const { emailAddress, password } = this.state;
+        const { data } = await axios.post('/api/users/login', {
+            emailAddress,
+            password
+        });
+        if(password === data[0].password) {
+            console.log('password matched')
+        }
+    };
+
+    signup = (e: React.MouseEvent<any>) => {
+        console.log('signing up', e);
+    };
+
     render() {
         const { isLogIn } = this.state;
         return (
             <div className="flex justify-center">
-                <div className="ba ma3 w5 bg-green">
+                <div className="ba ma3 w5 bg-green loginContainer">
                     <LogInTabs
                         handleClick={this.handleClick}
                         isLogIn={isLogIn}
@@ -69,7 +87,7 @@ export class LogIn extends Component {
                                     <Input
                                         className="pa1 ma2"
                                         onChange={this.handleChange}
-                                        placeholder="lastName"
+                                        placeholder="Last Name"
                                         name="lastName"
                                         required={true}
                                     />
@@ -108,7 +126,8 @@ export class LogIn extends Component {
                             <div className="flex flex-column items-center">
                                 <Button
                                     label={`${isLogIn ? 'Log In' : 'Sign Up'}`}
-                                    className="w-70 bt bl br b--black bg-white hover-green"
+                                    className="w-70 ba b--black bg-white hover-green mv1"
+                                    onClick={isLogIn ? this.login : this.signup}
                                 />
                                 <Link
                                     to={'/'}
@@ -119,7 +138,9 @@ export class LogIn extends Component {
                                     <Button
                                         label={'Back Home'}
                                         type={'button'}
-                                        className={'w-100 ba b--black bg-white hover-green'}
+                                        className={
+                                            'w-100 ba b--black bg-white hover-green mv1'
+                                        }
                                     />
                                 </Link>
                             </div>

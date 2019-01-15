@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import './button.css';
 
 type Props = {
     // TODO: change any type
