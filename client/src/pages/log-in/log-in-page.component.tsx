@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Input } from '../../components/atoms/input/input.component';
-import { Button } from '../../components/atoms/button/button.component';
+import { LogInForm } from '../../components/organisms/log-in-form/log-in-form.component';
 import './log-in.css';
 import axios from 'axios';
 
@@ -55,9 +53,15 @@ export class LogIn extends Component {
             emailAddress,
             password
         });
-        if(password === data[0].password) {
-            console.log('password matched')
+
+        // TODO: setup two-way hashing 
+        if (password === data[0].password) {
+            console.log('password matched');
+        } else {
+            console.log('password not matched')
         }
+        // TODO: if successful, should redirect to users portfolio page
+        // else show error and keep on page 
     };
 
     signup = (e: React.MouseEvent<any>) => {
@@ -73,79 +77,12 @@ export class LogIn extends Component {
                         handleClick={this.handleClick}
                         isLogIn={isLogIn}
                     />
-                    <form>
-                        <div className="flex flex-column pa3">
-                            {!isLogIn && (
-                                <>
-                                    <Input
-                                        className="pa1 ma2"
-                                        onChange={this.handleChange}
-                                        placeholder="First Name"
-                                        name="firstName"
-                                        required={true}
-                                    />
-                                    <Input
-                                        className="pa1 ma2"
-                                        onChange={this.handleChange}
-                                        placeholder="Last Name"
-                                        name="lastName"
-                                        required={true}
-                                    />
-                                    <Input
-                                        className="pa1 ma2"
-                                        onChange={this.handleChange}
-                                        placeholder="Phone Number"
-                                        name="phoneNumber"
-                                        required={true}
-                                    />
-                                </>
-                            )}
-                            <Input
-                                className="pa1 ma2"
-                                onChange={this.handleChange}
-                                placeholder="E-mail Address"
-                                name="emailAddress"
-                                required={true}
-                            />
-                            <Input
-                                className="pa1 ma2"
-                                onChange={this.handleChange}
-                                placeholder="Password"
-                                name="password"
-                                required={true}
-                            />
-                            {!isLogIn && (
-                                <Input
-                                    className="pa1 ma2"
-                                    onChange={this.handleChange}
-                                    placeholder="Password"
-                                    name="password"
-                                    required={true}
-                                />
-                            )}
-                            <div className="flex flex-column items-center">
-                                <Button
-                                    label={`${isLogIn ? 'Log In' : 'Sign Up'}`}
-                                    className="w-70 ba b--black bg-white hover-green mv1"
-                                    onClick={isLogIn ? this.login : this.signup}
-                                />
-                                <Link
-                                    to={'/'}
-                                    className={
-                                        'w-70 flex justify-center no-underline'
-                                    }
-                                >
-                                    <Button
-                                        label={'Back Home'}
-                                        type={'button'}
-                                        className={
-                                            'w-100 ba b--black bg-white hover-green mv1'
-                                        }
-                                    />
-                                </Link>
-                            </div>
-                        </div>
-                    </form>
+                    <LogInForm
+                        handleChange={this.handleChange}
+                        isLogIn={isLogIn}
+                        login={this.login}
+                        signup={this.signup}
+                    />
                 </div>
             </div>
         );
