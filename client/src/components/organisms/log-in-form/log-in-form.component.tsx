@@ -58,8 +58,8 @@ export const LogInForm = ({ isLogIn, handleChange, login, signup }: Props) => {
                     <Input
                         className="pa1 ma2"
                         onChange={handleChange}
-                        placeholder="Password"
-                        name="password"
+                        placeholder="Confirm Password"
+                        name="confirmPassword"
                         required={true}
                     />
                 )}

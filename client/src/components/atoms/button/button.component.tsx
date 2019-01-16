@@ -24,7 +24,7 @@ export const Button = ({
     return (
         <button
             onClick={onClick}
-            className={`button boxShadow ${className} ${size}`}
+            className={`button border ${className} ${size}`}
             type={type}
         >
             {label}

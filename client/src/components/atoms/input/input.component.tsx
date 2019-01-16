@@ -18,7 +18,7 @@ export const Input = ({
     className,
     name
 }: Props) => {
-    const style = `inputStyle border-box mh0 ${className}`;
+    const style = `inputStyle mh0 ${className}`;
     return (
         <input
             value={value}

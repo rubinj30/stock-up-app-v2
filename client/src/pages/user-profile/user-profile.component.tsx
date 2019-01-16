@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 // import { FaFolderOpenO } from 'react-icons/lib/fa'
 import { Header } from '../../components/molecules/header/header.component';
 import axios from 'axios';
+import '../../App.css';
 
 type Props = {
     match: {
@@ -17,7 +18,7 @@ type State = {
     pageReady: boolean;
 };
 
-type User = {
+export type User = {
     firstName: string;
     lastName: string;
     emailAddress: string;
@@ -53,11 +54,14 @@ export class UserProfile extends Component<Props, State> {
         const user = this.state.user;
         console.log(user);
         return (
-            user && (
-                <div>
-                    <div>Hello, {user.firstName}</div>
+            <div>
+                <div className="border ma3 pa3">
+                    <h4 className="mt0">User Dashboard</h4>
+                    <div>{user.firstName}</div>
+                    <div>{user.emailAddress}</div>
+                    <div>{user.phoneNumber}</div>
                 </div>
-            )
+            </div>
         );
     }
 }

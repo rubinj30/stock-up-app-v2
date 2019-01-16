@@ -6,6 +6,7 @@
   "dependencies": {
     "@types/validator": "^10.9.0",
     "axios": "^0.18.0",
+    "is-phone-number": "^1.0.4",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-router-dom": "^4.3.1",

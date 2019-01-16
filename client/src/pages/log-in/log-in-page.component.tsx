@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { User } from '../user-profile/user-profile.component';
 import { LogInForm } from '../../components/organisms/log-in-form/log-in-form.component';
 import './log-in.css';
 import '../../App.css';
 import axios from 'axios';
 import validator from 'validator';
+const isPhoneNumber = require('is-phone-number');
 
 type TabsProps = {
     handleClick: (e: React.MouseEvent<HTMLDivElement>) => void;
@@ -31,12 +33,21 @@ export const LogInTabs = ({ handleClick, isLogIn }: TabsProps) => (
     </div>
 );
 
+type State = {
+    user: User;
+    isLogIn: boolean;
+    redirect: boolean;
+    error: any;
+};
+
 export class LogIn extends Component {
     state = {
         emailAddress: '',
         password: '',
+        confirmPassword: '',
         firstName: '',
         lastName: '',
+        phoneNumber: '',
         isLogIn: true,
         redirect: false,
         error: false
@@ -44,6 +55,7 @@ export class LogIn extends Component {
 
     handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.currentTarget.value;
+        console.log(e.currentTarget.name);
         this.setState({ [e.currentTarget.name]: value });
     };
 
@@ -82,15 +94,45 @@ export class LogIn extends Component {
         // else show error and keep on page
     };
 
-    signup = (e: React.MouseEvent<any>) => {
-        console.log('signing up', e);
+    signup = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        console.log(this.state);
+        const {
+            emailAddress,
+            phoneNumber,
+            password,
+            confirmPassword
+        } = this.state;
+        this.validate();
+        // const user = await axios.post('/api/users', { ...this.state.user });
+        // console.log('user', user);
+    };
+
+    validate = () => {
+        const {
+            firstName,
+            lastName,
+            emailAddress,
+            phoneNumber,
+            password,
+            confirmPassword
+        } = this.state;
+        const validations = {
+            firstName: validator.isLength(firstName, 2),
+            lastName: validator.isLength(lastName, 2),
+            email: validator.isEmail(emailAddress),
+            phone: isPhoneNumber(phoneNumber),
+            password: validator.isLength(password, 6),
+            confirmation: password === confirmPassword
+        };
+        console.log('valids', validations);
     };
 
     render() {
         const { isLogIn } = this.state;
         return (
             <div className="flex justify-center">
-                <div className="ma3 w5 bg-green loginContainer boxShadow">
+                <div className="ma3 w5 bg-green loginContainer border">
                     <LogInTabs
                         handleClick={this.handleClick}
                         isLogIn={isLogIn}
