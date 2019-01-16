@@ -1,5 +1,6 @@
 import React from 'react';
 import './button.css';
+import '../../../App.css';
 
 type Props = {
     // TODO: change any type
@@ -23,7 +24,7 @@ export const Button = ({
     return (
         <button
             onClick={onClick}
-            className={`button ${className} ${size}`}
+            className={`button boxShadow ${className} ${size}`}
             type={type}
         >
             {label}

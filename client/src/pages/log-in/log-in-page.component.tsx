@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { LogInForm } from '../../components/organisms/log-in-form/log-in-form.component';
 import './log-in.css';
+import '../../App.css';
 import axios from 'axios';
 import validator from 'validator';
 
@@ -13,13 +14,17 @@ export const LogInTabs = ({ handleClick, isLogIn }: TabsProps) => (
     <div className="f4 flex">
         <div
             onClick={handleClick}
-            className={`w-50 pv1 tc ${!isLogIn ? 'bg-white bb br' : 'white'}`}
+            className={`w-50 pv1 tc bottomBorder ${
+                !isLogIn ? 'bg-white borderBottomRight' : 'white'
+            }`}
         >
             Log In
         </div>
         <div
             onClick={handleClick}
-            className={`w-50 pv1 tc ${isLogIn ? 'bg-white bb bl' : 'white'}`}
+            className={`w-50 pv1 tc bottomBorder ${
+                isLogIn ? 'bg-white borderBottomLeft' : 'white'
+            }`}
         >
             Sign Up
         </div>
@@ -61,7 +66,7 @@ export class LogIn extends Component {
         if (validator.isEmail(emailAddress)) {
             console.log('valid email');
         } else {
-            console.log('not valid email')
+            console.log('not valid email');
         }
         // TODO: setup two-way hashing
         if (!data[0]) {
@@ -85,7 +90,7 @@ export class LogIn extends Component {
         const { isLogIn } = this.state;
         return (
             <div className="flex justify-center">
-                <div className="ba ma3 w5 bg-green loginContainer">
+                <div className="ma3 w5 bg-green loginContainer boxShadow">
                     <LogInTabs
                         handleClick={this.handleClick}
                         isLogIn={isLogIn}

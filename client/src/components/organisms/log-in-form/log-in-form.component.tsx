@@ -2,6 +2,7 @@ import React from 'react';
 import { Input } from '../../atoms/input/input.component';
 import { Button } from '../../atoms/button/button.component';
 import { Link } from 'react-router-dom';
+import '../../../App.css';
 
 type Props = {
     isLogIn: boolean;
@@ -65,7 +66,7 @@ export const LogInForm = ({ isLogIn, handleChange, login, signup }: Props) => {
                 <div className="flex flex-column items-center">
                     <Button
                         label={`${isLogIn ? 'Log In' : 'Sign Up'}`}
-                        className="w-70 ba b--black bg-white hover-green mv1"
+                        className="w-70 bg-white hover-green mv1"
                         onClick={isLogIn ? login : signup}
                     />
                     <Link
@@ -76,7 +77,7 @@ export const LogInForm = ({ isLogIn, handleChange, login, signup }: Props) => {
                             label={'Back Home'}
                             type={'button'}
                             className={
-                                'w-100 ba b--black bg-white hover-green mv1'
+                                'w-100 bg-white hover-green mv1'
                             }
                         />
                     </Link>

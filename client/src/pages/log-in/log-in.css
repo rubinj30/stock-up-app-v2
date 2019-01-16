@@ -1,3 +1,11 @@
 .loginContainer {
-    border-radius: 3px;
+    border-radius: 4px;
+}
+
+.borderBottomLeft {
+    border-bottom-left-radius: 4px;
+}
+
+.borderBottomRight {
+    border-bottom-right-radius: 4px;
 }
