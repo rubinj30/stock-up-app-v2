@@ -42,12 +42,12 @@ type State = {
 
 export class LogIn extends Component {
     state = {
-        emailAddress: '',
-        password: '',
-        confirmPassword: '',
-        firstName: '',
-        lastName: '',
-        phoneNumber: '',
+        emailAddress: 'ttttt@test.com',
+        password: 'testtest',
+        confirmPassword: 'testtest',
+        firstName: 'test',
+        lastName: 'test',
+        phoneNumber: '770-789-3501',
         isLogIn: true,
         redirect: false,
         error: false
@@ -96,16 +96,32 @@ export class LogIn extends Component {
 
     signup = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        console.log(this.state);
-        const {
-            emailAddress,
-            phoneNumber,
-            password,
-            confirmPassword
-        } = this.state;
-        this.validate();
-        // const user = await axios.post('/api/users', { ...this.state.user });
-        // console.log('user', user);
+        const validated = this.validate();
+        if (!validated) {
+            this.setState({ error: true });
+        } else {
+            const {
+                firstName,
+                lastName,
+                emailAddress,
+                phoneNumber,
+                password
+            } = this.state;
+            const payload = {
+                firstName,
+                lastName,
+                emailAddress,
+                phoneNumber,
+                password
+            };
+            console.log('payload', payload);
+            const { data } = await axios.post('/api/users/signup', payload);
+            if (data.error) {
+                console.log(data.error);
+            } else {
+                console.log(data);
+            }
+        }
     };
 
     validate = () => {
@@ -125,8 +141,11 @@ export class LogIn extends Component {
             password: validator.isLength(password, 6),
             confirmation: password === confirmPassword
         };
-        console.log('valids', validations);
+        return this.areAllFieldsValid(validations);
     };
+
+    areAllFieldsValid = (validations: any) =>
+        Object.keys(validations).every(key => validations[key]);
 
     render() {
         const { isLogIn } = this.state;

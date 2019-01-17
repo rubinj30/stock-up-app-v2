@@ -28,7 +28,6 @@ router.post('/', async (req, res) => {
 router.post('/login', async (req, res) => {
     try {
         const { emailAddress, password } = req.body;
-        console.log(req.body);
         const user = await User.find({ emailAddress: emailAddress });
         if (user.length < 1) {
             res.json({ error: 'That e-mail does not belong to a user' });
