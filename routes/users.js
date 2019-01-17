@@ -41,7 +41,6 @@ router.post('/login', async (req, res) => {
 router.post('/signup', async (req, res) => {
     try {
         const { emailAddress } = req.body;
-        console.log(req.body);
         const user = await User.find({ emailAddress: emailAddress });
         if (user.length > 0) {
             res.json({

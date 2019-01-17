@@ -55,7 +55,6 @@ export class LogIn extends Component {
 
     handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.currentTarget.value;
-        console.log(e.currentTarget.name);
         this.setState({ [e.currentTarget.name]: value });
     };
 
@@ -114,7 +113,6 @@ export class LogIn extends Component {
                 phoneNumber,
                 password
             };
-            console.log('payload', payload);
             const { data } = await axios.post('/api/users/signup', payload);
             if (data.error) {
                 console.log(data.error);
