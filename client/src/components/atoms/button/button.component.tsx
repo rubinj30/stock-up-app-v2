@@ -1,10 +1,9 @@
 import React from 'react';
 import './button.css';
-import '../../../App.css';
 
 type Props = {
     // TODO: change any type
-    onClick?: any;
+    onClick?: (e: React.MouseEvent<any>) => void;
     className?: string;
     label?: string;
     size?: Size;

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { User } from '../user-profile/user-profile.component';
+import { Redirect } from 'react-router-dom';
+import { LogInTabs } from '../../components/molecules/log-in-tabs/log-in-tabs.component';
 import { LogInForm } from '../../components/organisms/log-in-form/log-in-form.component';
 import './log-in.css';
 import '../../App.css';
@@ -7,49 +8,30 @@ import axios from 'axios';
 import validator from 'validator';
 const isPhoneNumber = require('is-phone-number');
 
-type TabsProps = {
-    handleClick: (e: React.MouseEvent<HTMLDivElement>) => void;
-    isLogIn: boolean;
-};
-
-export const LogInTabs = ({ handleClick, isLogIn }: TabsProps) => (
-    <div className="f4 flex">
-        <div
-            onClick={handleClick}
-            className={`w-50 pv1 tc bottomBorder ${
-                !isLogIn ? 'bg-white borderBottomRight' : 'white'
-            }`}
-        >
-            Log In
-        </div>
-        <div
-            onClick={handleClick}
-            className={`w-50 pv1 tc bottomBorder ${
-                isLogIn ? 'bg-white borderBottomLeft' : 'white'
-            }`}
-        >
-            Sign Up
-        </div>
-    </div>
-);
-
 type State = {
-    user: User;
+    id: string;
+    emailAddress: string;
+    password: string;
+    confirmPassword: string;
+    firstName: string;
+    lastName: string;
+    phoneNumber: string;
     isLogIn: boolean;
-    redirect: boolean;
+    success: boolean;
     error: any;
 };
 
 export class LogIn extends Component {
-    state = {
-        emailAddress: 'ttttt@test.com',
-        password: 'testtest',
-        confirmPassword: 'testtest',
-        firstName: 'test',
-        lastName: 'test',
-        phoneNumber: '770-789-3501',
+    state: State = {
+        id: '',
+        emailAddress: '',
+        password: '',
+        confirmPassword: '',
+        firstName: '',
+        lastName: '',
+        phoneNumber: '',
         isLogIn: true,
-        redirect: false,
+        success: false,
         error: false
     };
 
@@ -115,9 +97,13 @@ export class LogIn extends Component {
             };
             const { data } = await axios.post('/api/users/signup', payload);
             if (data.error) {
+                // TODO: should also add other error indicators
+                // if error is e-mail exists, need to say that
+                // and should 
                 console.log(data.error);
             } else {
                 console.log(data);
+                this.setState({ id: data._id, success: true });
             }
         }
     };
@@ -146,7 +132,10 @@ export class LogIn extends Component {
         Object.keys(validations).every(key => validations[key]);
 
     render() {
-        const { isLogIn } = this.state;
+        const { isLogIn, success, id } = this.state;
+        if (success) {
+            return <Redirect to={`/users/${id}`} />;
+        }
         return (
             <div className="flex justify-center">
                 <div className="ma3 w5 bg-green loginContainer border">
