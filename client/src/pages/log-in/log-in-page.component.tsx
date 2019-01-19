@@ -40,7 +40,7 @@ export class LogIn extends Component {
         this.setState({ [e.currentTarget.name]: value });
     };
 
-    handleClick = (e: React.MouseEvent<any>) => {
+    handleTabClick = (e: React.MouseEvent<any>) => {
         const innerText = e.currentTarget.innerText;
         if (innerText === 'Log In') {
             this.setState({ isLogIn: true });
@@ -99,10 +99,11 @@ export class LogIn extends Component {
             if (data.error) {
                 // TODO: should also add other error indicators
                 // if error is e-mail exists, need to say that
-                // and should 
+                // and should
                 console.log(data.error);
             } else {
                 console.log(data);
+                localStorage.set({ emailAddress: data.emailAddress });
                 this.setState({ id: data._id, success: true });
             }
         }
@@ -140,7 +141,7 @@ export class LogIn extends Component {
             <div className="flex justify-center">
                 <div className="ma3 w5 bg-green loginContainer border">
                     <LogInTabs
-                        handleClick={this.handleClick}
+                        handleClick={this.handleTabClick}
                         isLogIn={isLogIn}
                     />
                     <LogInForm
