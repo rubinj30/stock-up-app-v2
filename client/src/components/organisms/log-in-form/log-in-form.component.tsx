@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input } from '../../atoms/input/input.component';
+import { LogInInput } from '../../molecules/log-in-input/log-in-input.component';
 import { Button } from '../../atoms/button/button.component';
 import { Link } from 'react-router-dom';
 import '../../../App.css';
@@ -9,30 +9,37 @@ type Props = {
     handleChange: any;
     login: (e: React.MouseEvent<any>) => void;
     signup: (e: React.MouseEvent<any>) => void;
+    errors: string[] | [];
 };
 
-export const LogInForm = ({ isLogIn, handleChange, login, signup }: Props) => {
+export const LogInForm = ({
+    isLogIn,
+    handleChange,
+    login,
+    signup,
+    errors
+}: Props) => {
     return (
         <form>
             <div className="flex flex-column pa3">
                 {!isLogIn && (
                     <>
-                        <Input
-                            className="pa1 ma2"
+                        <LogInInput
+                            errors={errors}
                             onChange={handleChange}
                             placeholder="First Name"
                             name="firstName"
                             required={true}
                         />
-                        <Input
-                            className="pa1 ma2"
+                        <LogInInput
+                            errors={errors}
                             onChange={handleChange}
                             placeholder="Last Name"
                             name="lastName"
                             required={true}
                         />
-                        <Input
-                            className="pa1 ma2"
+                        <LogInInput
+                            errors={errors}
                             onChange={handleChange}
                             placeholder="Phone Number"
                             name="phoneNumber"
@@ -40,33 +47,33 @@ export const LogInForm = ({ isLogIn, handleChange, login, signup }: Props) => {
                         />
                     </>
                 )}
-                <Input
-                    className="pa1 ma2"
+                <LogInInput
+                    errors={errors}
                     onChange={handleChange}
                     placeholder="E-mail Address"
                     name="emailAddress"
                     required={true}
                 />
-                <Input
-                    className="pa1 ma2"
+                <LogInInput
+                    errors={errors}
                     onChange={handleChange}
                     placeholder="Password"
                     name="password"
                     required={true}
                 />
                 {!isLogIn && (
-                    <Input
-                        className="pa1 ma2"
+                    <LogInInput
+                        errors={errors}
                         onChange={handleChange}
                         placeholder="Confirm Password"
                         name="confirmPassword"
                         required={true}
                     />
                 )}
-                <div className="flex flex-column items-center">
+                <div className="flex flex-column items-center pa2">
                     <Button
                         label={`${isLogIn ? 'Log In' : 'Sign Up'}`}
-                        className="w-70 bg-white hover-green mv1"
+                        className="w-70 bg-white mv1 green hover-dark-green"
                         onClick={isLogIn ? login : signup}
                     />
                     <Link
@@ -76,9 +83,7 @@ export const LogInForm = ({ isLogIn, handleChange, login, signup }: Props) => {
                         <Button
                             label={'Back Home'}
                             type={'button'}
-                            className={
-                                'w-100 bg-white hover-green mv1'
-                            }
+                            className={'w-100 bg-white hover-green mv1 green'}
                         />
                     </Link>
                 </div>

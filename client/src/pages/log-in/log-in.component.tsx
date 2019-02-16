@@ -18,7 +18,8 @@ type State = {
     phoneNumber: string;
     isLogIn: boolean;
     success: boolean;
-    error: any;
+    errors: string[] | [];
+    errorFromServer: string;
 };
 
 export class LogIn extends Component {
@@ -32,7 +33,8 @@ export class LogIn extends Component {
         phoneNumber: '',
         isLogIn: true,
         success: false,
-        error: false
+        errors: [],
+        errorFromServer: 'false'
     };
 
     handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,10 +79,13 @@ export class LogIn extends Component {
 
     signup = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        const validated = this.validate();
-        if (!validated) {
-            this.setState({ error: true });
-        } else {
+
+        // calls function that will update 'errors' in state with the inputs that had errors
+        await this.validate();
+
+        // if there are no errors, then will try to create a new user
+        if (this.state.errors.length === 0) {
+            // if all are validated, then create a user
             const {
                 firstName,
                 lastName,
@@ -101,6 +106,7 @@ export class LogIn extends Component {
                 // if error is e-mail exists, need to say that
                 // and should
                 console.log(data.error);
+                this.setState({ errorFromServer: data.error });
             } else {
                 console.log(data);
                 localStorage.set({ emailAddress: data.emailAddress });
@@ -121,19 +127,27 @@ export class LogIn extends Component {
         const validations = {
             firstName: validator.isLength(firstName, 2),
             lastName: validator.isLength(lastName, 2),
-            email: validator.isEmail(emailAddress),
-            phone: isPhoneNumber(phoneNumber),
+            emailAddress: validator.isEmail(emailAddress),
+            phoneNumber: isPhoneNumber(phoneNumber),
             password: validator.isLength(password, 6),
-            confirmation: password === confirmPassword
+            confirmPassword:
+                confirmPassword.length > 0 && password === confirmPassword
         };
+        console.log('in validate', validations);
         return this.areAllFieldsValid(validations);
     };
 
-    areAllFieldsValid = (validations: any) =>
-        Object.keys(validations).every(key => validations[key]);
+    // checks to make sure all keys have a value of true
+    areAllFieldsValid = (validations: any) => {
+        const errors = Object.keys(validations).filter(
+            key => validations[key] === false
+        );
+        this.setState({ errors });
+        return Object.keys(validations).filter(key => !validations[key]);
+    };
 
     render() {
-        const { isLogIn, success, id } = this.state;
+        const { isLogIn, success, id, errors } = this.state;
         if (success) {
             return <Redirect to={`/users/${id}`} />;
         }
@@ -145,6 +159,7 @@ export class LogIn extends Component {
                         isLogIn={isLogIn}
                     />
                     <LogInForm
+                        errors={errors}
                         handleChange={this.handleChange}
                         isLogIn={isLogIn}
                         login={this.login}

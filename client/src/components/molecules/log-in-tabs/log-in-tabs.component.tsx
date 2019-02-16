@@ -11,7 +11,7 @@ export const LogInTabs = ({ handleClick, isLogIn }: TabsProps) => (
         <div
             onClick={handleClick}
             className={`w-50 pv1 tc bottomBorder ${
-                !isLogIn ? 'bg-white green borderBottomRight pointer' : 'white'
+                !isLogIn ? 'bg-white green leftTabBorderRadius pointer' : 'white'
             }`}
         >
             Log In
@@ -19,7 +19,7 @@ export const LogInTabs = ({ handleClick, isLogIn }: TabsProps) => (
         <div
             onClick={handleClick}
             className={`w-50 pv1 tc bottomBorder ${
-                isLogIn ? 'bg-white green borderBottomLeft pointer' : 'white'
+                isLogIn ? 'bg-white green rightTabBorderRadius pointer' : 'white'
             }`}
         >
             Sign Up

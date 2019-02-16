@@ -23,7 +23,7 @@ export const Button = ({
     return (
         <button
             onClick={onClick}
-            className={`button pointer border ${className} ${size}`}
+            className={`button pointer border pa2 ${className} ${size}`}
             type={type}
         >
             {label}

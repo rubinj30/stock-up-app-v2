@@ -1,5 +1,12 @@
-.inputStyle {
-    height: 2rem;
-    outline: none;
+input {
     border-radius: 4px;
+    outline: none;
+}
+
+.smallInput {
+    height: 2rem;
+}
+
+.mediumInput {
+    height: 3rem;
 }
