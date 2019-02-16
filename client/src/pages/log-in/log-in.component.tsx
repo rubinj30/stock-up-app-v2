@@ -19,7 +19,6 @@ type State = {
     isLogIn: boolean;
     success: boolean;
     errors: string[] | [];
-    errorFromServer: string;
 };
 
 export class LogIn extends Component {
@@ -33,8 +32,7 @@ export class LogIn extends Component {
         phoneNumber: '',
         isLogIn: true,
         success: false,
-        errors: [],
-        errorFromServer: 'false'
+        errors: []
     };
 
     handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -105,8 +103,7 @@ export class LogIn extends Component {
                 // TODO: should also add other error indicators
                 // if error is e-mail exists, need to say that
                 // and should
-                console.log(data.error);
-                this.setState({ errorFromServer: data.error });
+                this.setState({ errors: ['existingUser'] });
             } else {
                 console.log(data);
                 localStorage.set({ emailAddress: data.emailAddress });
@@ -153,7 +150,7 @@ export class LogIn extends Component {
         }
         return (
             <div className="flex justify-center">
-                <div className="ma3 w5 bg-green loginContainer border">
+                <div className="ma3 bg-green loginContainer border">
                     <LogInTabs
                         handleClick={this.handleTabClick}
                         isLogIn={isLogIn}

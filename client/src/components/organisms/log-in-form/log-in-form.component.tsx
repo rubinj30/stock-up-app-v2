@@ -47,6 +47,11 @@ export const LogInForm = ({
                         />
                     </>
                 )}
+                {errors.join(',').includes('existingUser') ? (
+                    <div className="error tc">
+                        That e-mail is already assigned to another user
+                    </div>
+                ) : null}
                 <LogInInput
                     errors={errors}
                     onChange={handleChange}
