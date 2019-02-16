@@ -131,17 +131,15 @@ export class LogIn extends Component {
             confirmPassword:
                 confirmPassword.length > 0 && password === confirmPassword
         };
-        console.log('in validate', validations);
-        return this.areAllFieldsValid(validations);
+        return this.updateStateWithErrors(validations);
     };
 
-    // checks to make sure all keys have a value of true
-    areAllFieldsValid = (validations: any) => {
+    // if any are not valid, the key will be added to errors in state
+    updateStateWithErrors = (validations: any) => {
         const errors = Object.keys(validations).filter(
             key => validations[key] === false
         );
         this.setState({ errors });
-        return Object.keys(validations).filter(key => !validations[key]);
     };
 
     render() {

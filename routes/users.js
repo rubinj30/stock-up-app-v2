@@ -44,8 +44,7 @@ router.post('/signup', async (req, res) => {
         const user = await User.find({ emailAddress: emailAddress });
         if (user.length > 0) {
             res.json({
-                error:
-                    'user already exists'
+                error: 'user already exists'
             });
         } else {
             const savedUser = await User.create(req.body);
@@ -59,6 +58,25 @@ router.post('/signup', async (req, res) => {
 router.get('/:userId', async (req, res) => {
     try {
         const user = await User.findById(req.params.userId);
+        res.json(user);
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+router.patch('/:userId', async (req, res) => {
+    try {
+        console.log(req.body);
+        const user = await User.findByIdAndUpdate(req.params.userId, req.body);
+        res.json(user);
+    } catch (err) {
+        console.log(err);
+    }
+});
+
+router.delete('/:userId', async (req, res) => {
+    try {
+        const user = await User.findByIdAndDelete(req.params.userId);
         res.json(user);
     } catch (err) {
         console.log(err);
