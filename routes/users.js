@@ -45,7 +45,7 @@ router.post('/signup', async (req, res) => {
         if (user.length > 0) {
             res.json({
                 error:
-                    'A user with that e-mail address already exists. Please login or use a different e-mail.'
+                    'user already exists'
             });
         } else {
             const savedUser = await User.create(req.body);

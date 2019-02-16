@@ -98,15 +98,16 @@ export class LogIn extends Component {
                 phoneNumber,
                 password
             };
+
+            // if no errors make a post request for a new user
             const { data } = await axios.post('/api/users/signup', payload);
-            if (data.error) {
-                // TODO: should also add other error indicators
-                // if error is e-mail exists, need to say that
-                // and should
+
+            // if there is an error
+            if (data.error === 'user already exists') {
                 this.setState({ errors: ['existingUser'] });
             } else {
                 console.log(data);
-                localStorage.set({ emailAddress: data.emailAddress });
+                localStorage.setItem('emailAddress', data.emailAddress);
                 this.setState({ id: data._id, success: true });
             }
         }

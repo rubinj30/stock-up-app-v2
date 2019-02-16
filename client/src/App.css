@@ -4,13 +4,13 @@
 }
 
 .error {
-    color: #960000;
+    color: #840606;
 }
 
 .bg-error {
-    background: #960000;
+    background: #840606;
 }
 
 .errorBorder {
-    border: #960000 2px solid;
+    border: #840606 2px solid;
 }
