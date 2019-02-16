@@ -15,6 +15,7 @@ type Props = {
 
 type State = {
     user: User;
+
     pageReady: boolean;
 };
 
@@ -23,6 +24,7 @@ export type User = {
     lastName: string;
     emailAddress: string;
     phoneNumber: string;
+    stocks: string[];
 };
 
 export class UserProfile extends Component<Props, State> {
@@ -31,7 +33,8 @@ export class UserProfile extends Component<Props, State> {
             firstName: '',
             lastName: '',
             emailAddress: '',
-            phoneNumber: ''
+            phoneNumber: '',
+            stocks: []
         },
         pageReady: false
     };
@@ -50,16 +53,16 @@ export class UserProfile extends Component<Props, State> {
         });
     };
 
+    getNews = () => {};
+
     render() {
-        const user = this.state.user;
-        console.log(user);
+        const { user } = this.state;
         return (
             <div>
                 <div className="border ma3 pa3">
                     <h4 className="mt0">User Dashboard</h4>
                     <div>{user.firstName}</div>
                     <div>{user.emailAddress}</div>
-                    <div>{user.phoneNumber}</div>
                 </div>
             </div>
         );

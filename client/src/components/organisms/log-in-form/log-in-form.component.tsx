@@ -88,7 +88,7 @@ export const LogInForm = ({
                         <Button
                             label={'Back Home'}
                             type={'button'}
-                            className={'w-100 bg-white hover-green mv1 green'}
+                            className={'w-100 bg-white hover-green mv2 green'}
                         />
                     </Link>
                 </div>
