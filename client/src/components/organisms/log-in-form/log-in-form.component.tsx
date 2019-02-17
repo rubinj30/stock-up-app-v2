@@ -2,6 +2,7 @@ import React from 'react';
 import { LogInInput } from '../../molecules/log-in-input/log-in-input.component';
 import { Button } from '../../atoms/button/button.component';
 import { Link } from 'react-router-dom';
+import { InputErrorMessage } from '../../atoms/input-error-message/input-error-message.component';
 import '../../../App.css';
 
 type Props = {
@@ -47,11 +48,12 @@ export const LogInForm = ({
                         />
                     </>
                 )}
-                {errors.join(',').includes('existingUser') ? (
-                    <div className="error tc">
-                        That e-mail is already assigned to another user
-                    </div>
-                ) : null}
+                {errors.join(',').includes('existingUser') && (
+                    <InputErrorMessage text="That e-mail is already assigned to another user" />
+                )}
+                {errors.join(',').includes('User Not Found') && (
+                    <InputErrorMessage text="A user with that e-mail does not exist" />
+                )}
                 <LogInInput
                     errors={errors}
                     onChange={handleChange}
@@ -59,6 +61,11 @@ export const LogInForm = ({
                     name="emailAddress"
                     required={true}
                 />
+
+                {/* if on the login page, and the password entered is incorrect display error text */}
+                {errors.join(',').includes('incorrectPassword') && (
+                    <InputErrorMessage text="The password you entered is incorrect" />
+                )}
                 <LogInInput
                     errors={errors}
                     onChange={handleChange}
@@ -88,7 +95,9 @@ export const LogInForm = ({
                         <Button
                             label={'Back Home'}
                             type={'button'}
-                            className={'w-100 bg-white hover-green mv2 green'}
+                            className={
+                                'w-100 bg-white hover-dark-green mv2 green'
+                            }
                         />
                     </Link>
                 </div>

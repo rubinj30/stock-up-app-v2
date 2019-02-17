@@ -43,9 +43,9 @@ export class LogIn extends Component {
     handleTabClick = (e: React.MouseEvent<any>) => {
         const innerText = e.currentTarget.innerText;
         if (innerText === 'Log In') {
-            this.setState({ isLogIn: true });
+            this.setState({ isLogIn: true, errors: [] });
         } else {
-            this.setState({ isLogIn: false });
+            this.setState({ isLogIn: false, errors: [] });
         }
     };
 
@@ -56,23 +56,24 @@ export class LogIn extends Component {
             emailAddress,
             password
         });
-        if (validator.isEmail(emailAddress)) {
-            console.log('valid email');
+        const user = data && data[0];
+
+        if (!validator.isEmail(emailAddress)) {
+            this.setState({ errors: ['emailAddress'] });
         } else {
-            console.log('not valid email');
+            // TODO: setup two-way hashing
+            if (!data[0]) {
+
+                // TODO: setup condition to display message if user not found
+                this.setState({ errors: ['User Not Found'] });
+            } else if (password === user.password) {
+                this.setState({ success: true, id: user._id });
+            } else if (data.error) {
+                console.log('error', data.error);
+            } else {
+                this.setState({ errors: ['password', 'incorrectPassword'] });
+            }
         }
-        // TODO: setup two-way hashing
-        if (!data[0]) {
-            console.log('user not found');
-        } else if (password === data[0].password) {
-            console.log('password matched');
-        } else if (data.error) {
-            console.log('ERROR');
-        } else {
-            console.log('password not matched and no error');
-        }
-        // TODO: if successful, should redirect to users portfolio page
-        // else show error and keep on page
     };
 
     signup = async (e: React.MouseEvent<HTMLButtonElement>) => {
