@@ -63,10 +63,9 @@ export class LogIn extends Component {
         } else {
             // TODO: setup two-way hashing
             if (!data[0]) {
-
-                // TODO: setup condition to display message if user not found
                 this.setState({ errors: ['User Not Found'] });
             } else if (password === user.password) {
+                this.setLocalStorage(user);
                 this.setState({ success: true, id: user._id });
             } else if (data.error) {
                 console.log('error', data.error);
@@ -103,15 +102,21 @@ export class LogIn extends Component {
             // if no errors make a post request for a new user
             const { data } = await axios.post('/api/users/signup', payload);
 
-            // if there is an error
+            // if the server sends back error saying user already exists, update the errors array in state
             if (data.error === 'user already exists') {
                 this.setState({ errors: ['existingUser'] });
             } else {
-                console.log(data);
-                localStorage.setItem('emailAddress', data.emailAddress);
+                this.setLocalStorage(data);
                 this.setState({ id: data._id, success: true });
             }
         }
+    };
+
+    // sets user first name and email in local storage
+    setLocalStorage = (data: any) => {
+        const { firstName, emailAddress } = data;
+        localStorage.setItem('emailAddress', emailAddress);
+        localStorage.setItem('firstName', firstName);
     };
 
     validate = () => {

@@ -23,7 +23,6 @@ export const LogInInput = ({
     const isError =
         errors.includes(name) ||
         (name === 'emailAddress' && errors.includes('existingUser'));
-    console.log('error', isError);
     return (
         <div className={`ma2 flex justify-center`}>
             <Input
