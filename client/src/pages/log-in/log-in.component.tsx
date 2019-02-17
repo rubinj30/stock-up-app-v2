@@ -117,6 +117,7 @@ export class LogIn extends Component {
         const { firstName, emailAddress } = data;
         localStorage.setItem('emailAddress', emailAddress);
         localStorage.setItem('firstName', firstName);
+        localStorage.setItem('id', data._id);
     };
 
     validate = () => {

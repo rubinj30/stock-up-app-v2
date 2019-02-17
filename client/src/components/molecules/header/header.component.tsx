@@ -7,7 +7,7 @@ import './header.css';
 export class Header extends Component {
     render() {
         const firstName = localStorage.getItem('firstName');
-        console.log(firstName);
+        const id = localStorage.getItem('id');
         return (
             <div className="header pa2 bg-green white">
                 <div className="w-90 flex items-center justify-between">
@@ -18,16 +18,21 @@ export class Header extends Component {
                         <span className="pr2">StockUp </span>
                         <FaChartLine />
                     </Link>
-                    <Link
-                        to="/login"
-                        className="no-underline white f5 flex items-center"
-                    >
-                        {firstName ? (
+                    {firstName ? (
+                        <Link
+                            to={`/users/${id}`}
+                            className="no-underline white f5 flex items-center"
+                        >
                             <span>{firstName}</span>
-                        ) : (
+                        </Link>
+                    ) : (
+                        <Link
+                            to="/login"
+                            className="no-underline white f5 flex items-center"
+                        >
                             <span>Log In</span>
-                        )}
-                    </Link>
+                        </Link>
+                    )}
                 </div>
             </div>
         );
